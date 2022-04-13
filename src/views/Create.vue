@@ -1,14 +1,15 @@
 <template>
   <div class="create">
+      <h1>Create your post here!</h1>
       <form @submit.prevent="handleSubmit" >
-          <label>Title</label>
-          <input v-model="title" type="text" required>
-          <label>Description</label>
-          <input v-model="description" type="text" required>
-          <label>Content:</label>
-          <textarea v-model="body" required></textarea>
-          <label>Tags (hit enter to add a tag)</label>
-          <input v-model="tag" type="text" @keydown.enter.prevent="handleKeydown"> 
+          
+          <input placeholder="Title" v-model="title" type="text" required>
+          
+          <input placeholder="Description" v-model="description" type="text" required>
+          
+          <textarea placeholder="Body" v-model="body" required></textarea>
+          
+          <input placeholder="Tags (hit enter to add a tag)" v-model="tag" type="text" @keydown.enter.prevent="handleKeydown"> 
           <div @click="deleteTag(tag)" v-for="tag in tags" :key="tag" class="pill">
           <span>{{ tag }}</span>
       </div>
@@ -20,6 +21,7 @@
 <script>
 import { ref } from "vue"
 import { useRouter } from "vue-router"
+import { projectFirestore, timestamp } from '@/firebase/config'
 
 
 export default {
@@ -29,6 +31,7 @@ export default {
         const body = ref('')
         const tag = ref('')
         const tags = ref([])
+        
 
         const router = useRouter()
 
@@ -38,13 +41,10 @@ export default {
             title: title.value,
             description: description.value,
             body: body.value,
-            tags: tags.value
+            tags: tags.value,
+            createdAt: timestamp()
           } 
-          await fetch('http://localhost:3000/posts', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(post)
-          })
+          const res = await projectFirestore.collection('posts').add(post)
 
           router.push({name: 'Home'})
         }
@@ -75,54 +75,59 @@ export default {
     body {
       text-align: center;
     }
+    h1{
+      margin: auto 6rem;
+    }
 
     .create {
-      background: rgb(233, 233, 233);
-      width: 50%;
-      height: auto;
-      margin: auto auto;
-      padding: 1% 1%;
+    background: rgb(245, 245, 245);
+    width: 400px;
+    margin: 0% auto;
+    border-radius: 10px ;
+    box-shadow: 0px 0px 20px 5px rgb(224, 224, 224);
+    text-decoration: none;
+    color: #34495E;
+    
+    padding: 10px 0;
+    
     }
     form {
     max-width: 70%;
-    margin: 0 auto;
+    margin: 5px auto;
     text-align: left;
+    margin-bottom: 30px;
+
   }
   input, textarea {
+    font-family:inherit;
+  font-size: inherit;
     display: block;
-    margin: 10px 0;
+    margin: 20px 10px ;
     width: 100%;
     box-sizing: border-box;
-    padding: 10px;
-    border: none;
-    border: 1.5px solid #444;
     resize: none;
     border-radius: 5px;
     -webkit-transition: 0.1s;
     transition: 0.1s;
     outline: none;
+    padding:10px;
+    border:0;
+    box-shadow:0 0 10px 10px rgba(0,0,0,0.06);
+    background: rgb(251, 251, 251);
     
     
     
-
   }
-  input:focus, textarea:focus{
-  border: 3px solid rgb(63, 63, 63);
-  
+  input:focus, textarea:focus {
+  outline: 3px solid #41B883;
+  transform: scaleX(1) translateY(-2px);   
+  opacity: 1;
 }
+  
   textarea {
-    height: 160px;
+    height: 200px;
   }
-  label {
-    display: inline-block;
-    margin-top: 30px;
-    position: relative;
-    font-size: 20px;
-    color: white;
-    margin-bottom: 10px;
-    background: #41B883;
-    padding: 5px 5px;
-  }
+  
   
         
   
@@ -133,7 +138,9 @@ export default {
     color: white;
     border: none;
     padding: 8px 16px;
-    font-size: 18px
+    font-size: 18px;
+    box-shadow: 0px 0px 10px 1px #7adaaf;
+    border-radius: 3px ;
   }
   .pill {
     display: inline-block;

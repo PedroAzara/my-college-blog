@@ -1,9 +1,10 @@
 <template>
   <div class="home">
-    <h1>Posts with the tag {{tag}}</h1>
+    <h1>Showing Posts With The Tag <span class="tag">{{tag}}</span></h1>
     <div v-if="error">{{ error }}</div>
     <div v-if="posts.length" >
       <PostList :posts="postsWithTag" />
+      <TagCloud :posts="posts" />
      
     </div>
     <div v-else>
@@ -20,8 +21,9 @@ import PostList from '@/components/PostList.vue'
 import Spinner from '@/components/Spinner.vue'
 import { useRoute } from 'vue-router';
 import { computed } from 'vue'
+import TagCloud from '@/components/TagCloud.vue';
 export default {
-  components: { PostList, Spinner },
+  components: { PostList, Spinner, TagCloud },
   props: ['post', 'tag'],
     setup() {
         //use route.params.tag
@@ -40,5 +42,10 @@ export default {
 </script>
 
 <style>
+.tag{
+  color: #34495E;
+  background: #41B883;
+  padding: 3px 5px;
+}
 
 </style>

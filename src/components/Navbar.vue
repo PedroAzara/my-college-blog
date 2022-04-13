@@ -28,7 +28,7 @@ export default {
     padding: 10px;
   }
   header h1 {
-    color: #dfdfdf;
+    color: #444;
     font-size: 48px;
   }
   header a {
