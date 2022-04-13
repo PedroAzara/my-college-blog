@@ -4,14 +4,21 @@
         <div>
             <h3>{{post.title}}</h3>
             <p>{{post.description}}</p>
+            
         </div>
         </router-link>
+        
         
             <span class="pill" v-for="tag in post.tags" :key="tag">
                 <router-link class="link"  :to="{name: 'Tags', params: {tag: tag}}">
                 #{{tag}}
                  </router-link>
             </span>
+            
+            <span @click="handleClick" class="material-icons">
+            delete
+            </span>
+            
         
      
       
@@ -20,25 +27,35 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { projectFirestore } from '@/firebase/config'
+import { useRouter } from 'vue-router'
 export default {
-    props: ['post', 'tag'],
+    props: ['post', 'id'],
     setup(props) {
-        const snippet = computed(() => {
-            return props.post.body.substring(0,100) + '....'
-        })
+        const router = useRouter()
+            
+        
+        const handleClick = async ()=> {
+        await projectFirestore.collection('posts')
+        .doc(props.post.id )
+        .delete()
+        window.location.reload()
+      
+    }
 
-        return{snippet}
+
+        return{ handleClick}
     }
 }
 </script>
 
 <style >
     .post{
-        padding: 0.5% 1%;
-        margin: 0 40px 30px;
-        padding-bottom: 30px;
+        padding: 0.5% 0 1%;
+        margin: 1px 5px 30px 40px;
+        
         border-bottom: 1px dashed #e7e7e7;
+        position: relative;
     }
     
     .link {
@@ -75,6 +92,23 @@ export default {
     border-radius: 20px;
     font-size: 14px;
     cursor: pointer;
+    margin-bottom: 20px
+  }
+  .material-icons{
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding-top: 20px ;
+      padding-right: 20px ;
+      opacity: 0;
+      transition:opacity 0.2s;
+      cursor: pointer;
+      color: tomato;
+  }
+  .material-icons:hover{
+      opacity: 1;
+      transition:opacity 0.2s
   }
     
 </style>

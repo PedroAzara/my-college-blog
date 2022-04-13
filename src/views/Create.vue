@@ -81,14 +81,15 @@ export default {
 
     .create {
     background: rgb(245, 245, 245);
-    width: 400px;
+    width: 500px;
     margin: 0% auto;
     border-radius: 10px ;
     box-shadow: 0px 0px 20px 5px rgb(224, 224, 224);
     text-decoration: none;
     color: #34495E;
+    padding: 8px;
     
-    padding: 10px 0;
+    
     
     }
     form {
@@ -114,6 +115,7 @@ export default {
     border:0;
     box-shadow:0 0 10px 10px rgba(0,0,0,0.06);
     background: rgb(251, 251, 251);
+    color: rgb(91, 91, 91);
     
     
     

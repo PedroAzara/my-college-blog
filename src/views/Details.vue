@@ -4,7 +4,7 @@
     <h3>{{ post.title }}</h3>
     <h4>{{post.description  }}</h4>
     <p class="pre">{{ post.body }}</p>
-    <button @click="handleClick" class="delete">Delete Post</button>
+
   </div>
   <div v-else>
     <Spinner />
@@ -34,7 +34,7 @@ export default {
     const handleClick = async ()=> {
       await projectFirestore.collection('posts')
       .doc(props.id )
-      .delete()
+      
 
       router.push({name: 'Home'})
     }
