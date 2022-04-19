@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import getPosts from '@/composables/getPosts';
 import { projectFirestore } from '@/firebase/config'
 import { useRouter } from 'vue-router'
 export default {
@@ -39,7 +40,7 @@ export default {
         await projectFirestore.collection('posts')
         .doc(props.post.id )
         .delete()
-        window.location.reload()
+            
       
     }
 
@@ -49,18 +50,25 @@ export default {
 }
 </script>
 
-<style >
+<style scoped>
     .post{
-        padding: 0.5% 0 1%;
-        margin: 1px 5px 30px 40px;
+        text-align: center;
+        margin: 2px;
+        width: 100%;
+        height: 100%;
         
-        border-bottom: 1px dashed #e7e7e7;
+        
         position: relative;
+        display: inline-block;
+        
     }
     
     .link {
         text-decoration: none;
         color: #34495E;
+    }
+    p{
+        align-content: center;
     }
     
    h3 {
@@ -71,21 +79,11 @@ export default {
         max-width: 400px;
         color: #34495E;
    }
-   .post h3::before {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: #41B883;
-    position: absolute;
-    z-index: -1;
-    transform: scale(1.08);
-    left: 0px;
-    
-  }
+   
   .pill {
     display: inline-block;
-    margin: 10px 10px 0 0;
+    margin: auto 2px;
+    
     color: #444;
     background: #ddd;
     padding: 8px;

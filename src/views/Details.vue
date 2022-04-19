@@ -51,6 +51,7 @@ export default {
   .post {
     max-width: 1200px;
     margin: 0 auto;
+    border-bottom: 1px dashed #e7e7e7;
   }
   .post p {
     color: #444;
@@ -60,13 +61,5 @@ export default {
   .pre {
     white-space: pre-wrap;
   }
-   
-  button.delete {
-    margin: 10px auto;
-    background: rgb(255, 97, 97);
-    border: none;
-    color: white;
-    cursor: pointer;
-    transform: scale(1.3);
-  }
+  
 </style>

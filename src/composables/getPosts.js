@@ -8,7 +8,15 @@ const getPosts = () => {
     
 
     const load = async () => {
-      const res = await projectFirestore.collection('posts').get()
+      const res = await projectFirestore.collection('posts')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot((snap) => {
+        let docs = snap.docs.map(doc => {
+          return { ...doc.data(), id: doc.id}
+        })
+        posts.value = docs
+      })
+
       posts.value = res.docs.map(doc => {
         return { ...doc.data(), id: doc.id}
       })

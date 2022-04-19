@@ -77,17 +77,18 @@ export default {
     }
     h1{
       margin: auto 6rem;
+      padding-top: 5px;
     }
 
     .create {
-    background: rgb(245, 245, 245);
+    background: white;
     width: 500px;
     margin: 0% auto;
     border-radius: 10px ;
-    box-shadow: 0px 0px 20px 5px rgb(224, 224, 224);
+    
     text-decoration: none;
     color: #34495E;
-    padding: 8px;
+    padding: 10px;
     
     
     
