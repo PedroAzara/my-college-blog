@@ -1,6 +1,6 @@
 <template>
   <header>
-      <h1>My epic blog</h1>
+      <h1>My College Blog</h1>
       <nav>
           <router-link :to="{name: 'Home'}">
               Home
@@ -23,14 +23,16 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0 0;
     padding: 10px;
     flex-wrap: wrap;
   }
   header h1 {
     color: #444;
     font-size: 48px;
+    font-family: 'Secular One', sans-serif;
+
   }
   header a {
     color: #bbb;

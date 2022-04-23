@@ -1,7 +1,8 @@
 <template>
   <div v-if="error">{{ error }}</div>
   <div v-if="post" class="post">
-    <h3>{{ post.title }}</h3>
+    <h1>{{ post.title }}</h1>
+    <h5>{{getDate(post.createdAt.toDate())}}</h5>
     <h4>{{post.description  }}</h4>
     <p class="pre">{{ post.body }}</p>
 
@@ -21,7 +22,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { projectFirestore } from '@/firebase/config'
 
 export default {
-  props: ['id'],
+  props: ['id', 'post'],
   components: { Spinner },
   setup(props) {
     const route = useRoute
@@ -31,6 +32,13 @@ export default {
 
     load()
 
+    
+
+
+    const getDate = (date)=> {
+      return (date.getMonth()+1)+ '/' + (date.getDate()) + '/' + date.getFullYear() + ' at ' + date.getHours() + ':' + date.getMinutes()
+    }
+
     const handleClick = async ()=> {
       await projectFirestore.collection('posts')
       .doc(props.id )
@@ -39,24 +47,43 @@ export default {
       router.push({name: 'Home'})
     }
 
-    return { error, post, handleClick }
+    return { error, post, handleClick, getDate }
   }
 }
 </script>
 
 <style scoped>
+
+  h1{
+    text-align: center;
+    font-size: 3rem;
+    color: #5d6265;
+    margin-bottom: 0;
+  }
+
+  h4{
+    color: #5d6265;
+    text-align: center;
+  }
+  h5{
+    text-align: center;
+    margin-top: 0;
+    color: #5d6265;
+  }
   .tags a {
     margin-right: 10px;
   }
   .post {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
-    border-bottom: 1px dashed #e7e7e7;
+    
+    
   }
   .post p {
     color: #444;
     line-height: 1.5em;
     margin-top: 40px;
+    color: #5d6265;
   }
   .pre {
     white-space: pre-wrap;

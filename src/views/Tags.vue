@@ -3,8 +3,9 @@
     <h1>Showing Posts With The Tag <span class="tag">{{tag}}</span></h1>
     <div v-if="error">{{ error }}</div>
     <div v-if="posts.length" >
-      <PostList :posts="postsWithTag" />
       <TagCloud :posts="posts" />
+      <PostList :posts="postsWithTag" />
+      
      
     </div>
     <div v-else>

@@ -3,11 +3,12 @@
     
     <div v-if="error">{{ error }}</div>
     <div v-if="posts.length" >
-      <div class="container">
+      <TagCloud :posts="posts" />
+      <div class="">
         <PostList class="child" :posts="posts" />
       </div>
       
-      <TagCloud :posts="posts" />
+      
     </div>
     <div v-else>
       <Spinner />
@@ -39,16 +40,10 @@ body{
   background-color:#F7F8F9 ;
 }
   .home {
-    
+    margin: 0 auto;
    
   }
-  .container{
-    max-width: 90%;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap:wrap;
-    
-  }
+  
   .child{
     
     

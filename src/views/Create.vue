@@ -82,7 +82,8 @@ export default {
 
     .create {
     background: white;
-    width: 500px;
+    width: auto;
+    max-width: 600px;
     margin: 0% auto;
     border-radius: 10px ;
     
@@ -104,7 +105,7 @@ export default {
     font-family:inherit;
   font-size: inherit;
     display: block;
-    margin: 20px 10px ;
+    margin: 20px 0 ;
     width: 100%;
     box-sizing: border-box;
     resize: none;
@@ -114,7 +115,7 @@ export default {
     outline: none;
     padding:10px;
     border:0;
-    box-shadow:0 0 10px 10px rgba(0,0,0,0.06);
+    box-shadow: 0px 0px 20px -7px #aeaeae;
     background: rgb(251, 251, 251);
     color: rgb(91, 91, 91);
     
