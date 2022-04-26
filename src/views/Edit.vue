@@ -1,7 +1,7 @@
 <template>
   <div class="create">
-      <h1>Create your post here!</h1>
-      <form @submit.prevent="handleSubmit" >
+      <h1>Update your post here!</h1>
+      <form @submit.prevent="handleSubmit(title, description, body, tags)" >
           
           <input placeholder="Title"  v-model="title"  type="text" required>
           
@@ -24,7 +24,10 @@ import getPost from '@/composables/getPost'
 
 
 import { useRoute, useRouter } from 'vue-router'
-import { projectFirestore } from '@/firebase/config'
+import {updateDoc } from 'firebase/firestore'
+import { projectFirestore, timestamp } from '@/firebase/config'
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 import {onMounted, ref} from 'vue'
 export default {
     props: ['id', 'post'],
@@ -60,7 +63,6 @@ export default {
     })
       })
 
-       console.log(tags.value)
  
     
       
@@ -83,9 +85,23 @@ export default {
             return tag !== item
       })
         }
+        const handleSubmit = async (title, description, body, tags) => {
+          const post = {
+            title: title,
+            description: description,
+            body: body,
+            tags: tags,
+
+          } 
+        await projectFirestore.collection('posts')
+        .doc(props.id )
+        .update(post)
+        router.push({name: 'Home'})
+        }
 
 
-    return {title, body, description, tag, tags, error, post, deleteTag, handleKeydown}
+
+    return {title, body, description, tag, tags, error, post, deleteTag, handleKeydown, handleSubmit}
     }
 }
 </script>

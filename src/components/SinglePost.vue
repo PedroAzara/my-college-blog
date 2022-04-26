@@ -65,31 +65,55 @@ export default {
         const formatedTime = ()=>{
             const timeRightNow = Date.now()
             const createdTime = props.post.createdAt.toDate();
-            let deltaTime = ((timeRightNow - createdTime.getTime())/1000/60).toFixed(0)
+            let deltaTime = ((timeRightNow - createdTime.getTime())/1000/60)
+            let minutes = Math.floor(deltaTime)
+            let hours = Math.floor(deltaTime/60)
+            let days = Math.floor(hours/24)
+            let weeks = Math.floor(days/7)
+            let months = Math.floor(weeks/4)
+            let years = Math.floor(months/12)
             let formatedTime 
-            if (deltaTime < 1) {
+            if (minutes < 1) {
                 formatedTime = "A little while ago"
             }
-            if (deltaTime == 1) {
-                formatedTime = Math.round(deltaTime) + ' minute ago'
+            if (minutes == 1) {
+                formatedTime = minutes + ' minute ago'
             }
-            if (deltaTime < 60 && deltaTime >= 2) {
-                formatedTime = Math.round(deltaTime) + ' minutes ago'
+            if (hours < 1 && minutes > 1) {
+                formatedTime = minutes + ' minutes ago'
             }
-            if (deltaTime >= 60 && deltaTime < 120){
-                formatedTime = Math.round(deltaTime/60) + ' hour ago'
+            if (hours == 1){
+                formatedTime = hours + ' hour ago'
             }
-            if (deltaTime >= 120 && deltaTime < 24*60){
-                formatedTime = Math.round(deltaTime/60).toFixed(0)   + ' hours ago'
+            if (hours > 1 && days < 1){
+                formatedTime = (deltaTime/60).toFixed(0)   + ' hours ago'
             }
-            if (deltaTime >= 24*60 && deltaTime < 24*60*2){
-                formatedTime = Math.round(deltaTime/60/24).toFixed(0) + ' day ago'
+            if (days == 1){
+                formatedTime = days + ' day ago'
             }
-            if (deltaTime > 24*60*2){
-                formatedTime = Math.round(deltaTime/60/24).toFixed(0) + ' days ago'
+            if (days >= 2 && weeks < 1){
+                formatedTime = days + ' days ago'
+            }
+            if (weeks == 1){
+                formatedTime = weeks + ' week ago'
+            }
+            if (weeks > 1 && months < 1 ){
+                formatedTime = weeks + ' weeks ago'
+            }
+            if(months == 1){
+                formatedTime = months + ' month ago'
+            } 
+            if(months > 1 && years < 1){
+                formatedTime = months + ' months ago'
+            }
+            if(years == 1){
+                formatedTime = years + ' year ago'
+            }
+            if (years > 1){
+                formatedTime = years + ' years ago'
             }
 
-            return '' + formatedTime
+            return 'Created ' + formatedTime
         
            
             
@@ -109,7 +133,7 @@ export default {
         height: 100%;
         
         
-       
+        
         display: inline-block;
         position: relative;
         

@@ -3,7 +3,7 @@
 
 
   <div class="post-list" v-for="post in posts" :key="post.id" >
-      <SinglePost :post="post" />
+      <SinglePost class="single-post" :post="post" />
   </div>
 </div>
 </template>
@@ -24,9 +24,11 @@ export default {
 .container{
     max-width: 1200px;
     height: 1000px;
-    margin: 0 0;
+    margin: 0 auto;
     display: flex;
     flex-wrap:wrap;
+    
+    justify-content: center;
     
     
     
@@ -48,4 +50,6 @@ export default {
 .post-list:hover{
     transform: scale(1.03);
 }
+
+
 </style>

@@ -25,6 +25,9 @@ export default {
 <style>
   .tag-cloud {
     padding: 10px;
+    text-align: center;
+    max-width: 1200px;
+    margin: auto auto;
   }
   .tag-cloud h3 {
     border-bottom: 1px solid #eee;
