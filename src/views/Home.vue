@@ -4,7 +4,7 @@
     <div v-if="error">{{ error }}</div>
     <div v-if="posts.length" >
       <TagCloud :posts="posts" />
-      <div class="">
+      <div class="items">
         <PostList class="child" :posts="posts" />
       </div>
       
@@ -41,12 +41,14 @@ body{
 }
   .home {
     margin: 0 auto;
+    
+    
    
   }
-  
   .child{
     
-    
   }
+  
+  
   
 </style>

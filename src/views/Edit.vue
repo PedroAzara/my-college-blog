@@ -3,9 +3,9 @@
       <h1>Create your post here!</h1>
       <form @submit.prevent="handleSubmit" >
           
-          <input placeholder="Title" v-model="title" type="text" required>
+          <input placeholder="Title"  v-model="title"  type="text" required>
           
-          <textarea class="description" placeholder="Description" v-model="description"  required></textarea>
+           <textarea class="description" placeholder="Description" v-model="description"  required></textarea>
           
           <textarea placeholder="Body" v-model="body" required></textarea>
           
@@ -19,45 +19,63 @@
 </template>
 
 <script>
-import { ref } from "vue"
-import { useRouter } from "vue-router"
-import { projectFirestore, timestamp } from '@/firebase/config'
+import getPost from '@/composables/getPost'
 
 
+
+import { useRoute, useRouter } from 'vue-router'
+import { projectFirestore } from '@/firebase/config'
+import {onMounted, ref} from 'vue'
 export default {
-    setup(){
-        const title = ref('')
-        const description = ref('')
-        const body = ref('')
-        const tag = ref('')
-        const tags = ref([])
+    props: ['id', 'post'],
+    setup(props){
+      const { error, post, load } = getPost(props.id)
+
+      const route = useRoute()
+      const router = useRouter() 
+      
+      
+      const title = ref('')
+      const description = ref('')
+      const body = ref('')
+      const tag = ref('')
+      const tags = ref([])
+      
+      
+
+      
+    
+      onMounted(()=> {
+        load().then(()=> {
+         title.value = post.value.title
+         description.value = post.value.description
+         body.value = post.value.body
+         tags.value = post.value.tags
+        
+         
+        
+         
+       
+        
+    })
+      })
+
+       console.log(tags.value)
+ 
+    
+      
+       
+       
         
 
-        const router = useRouter()
-
-        const handleSubmit = async () => {
-          const post = {
-            id: Math.floor(Math.random() * 10000),
-            title: title.value,
-            description: description.value,
-            body: body.value,
-            tags: tags.value,
-            createdAt: timestamp()
-          } 
-          const res = await projectFirestore.collection('posts').add(post)
-
-          router.push({name: 'Home'})
-        }
-
-        const handleKeydown = () => {
-            tag.value = tag.value.toLowerCase()
-            if (!tags.value.includes(tag.value) && tag.value.length) {
-                tag.value = tag.value.replace(/\s/g,'')
-                
-                tags.value.push(tag.value)
+    
+    
+    const handleKeydown = () => {
+              if(!tags.value.includes(tag.value.toLowerCase()) && tag.value){
+                tags.value = [...tags.value, tag.value.replace(/\s/g,'')];
+                tag.value = '';
             }
-            
-            tag.value = ''
+
         }
 
         const deleteTag = (tag) => {
@@ -66,7 +84,8 @@ export default {
       })
         }
 
-        return {title, body, description, tag, tags, handleKeydown, deleteTag, handleSubmit}
+
+    return {title, body, description, tag, tags, error, post, deleteTag, handleKeydown}
     }
 }
 </script>
@@ -122,7 +141,6 @@ export default {
     
     
   }
- 
   input:focus, textarea:focus {
   outline: 3px solid #41B883;
   transform: scaleX(1) translateY(-2px);   
@@ -132,10 +150,10 @@ export default {
   textarea {
     height: 200px;
   }
+  
    textarea.description{
     height: 100px;
   }
-  
         
   
   button {

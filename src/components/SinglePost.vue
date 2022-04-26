@@ -25,11 +25,16 @@
         </router-link>
         
         
-        
+         <router-link class="link" :post="post" :to="{name: 'Edit', params: {id: post.id}}">
+            <span class="material-icons edit">
+            edit
+            </span> 
+         </router-link>
             
-            <span @click="handleClick" class="material-icons">
+            <span @click="handleClick" class="material-icons delete">
             delete
             </span>
+            
             
             
         
@@ -167,7 +172,19 @@ export default {
       max-width: 90%;
         
   }
-  .material-icons{
+  .edit{
+      display: inline-block;
+      position: absolute;
+      top:0;
+      right:0;
+       padding-top: 20px ;
+      padding-right: 40px ;
+      opacity: 0;
+      transition:opacity 0.2s;
+      cursor: pointer;
+      color: rgb(71, 117, 255);
+  }
+  .delete{
       display: inline-block;
       position: absolute;
       top: 0;
@@ -179,7 +196,11 @@ export default {
       cursor: pointer;
       color: tomato;
   }
-  .material-icons:hover{
+  .delete:hover{
+      opacity: 1;
+      transition:opacity 0.2s
+  }
+  .edit:hover{
       opacity: 1;
       transition:opacity 0.2s
   }

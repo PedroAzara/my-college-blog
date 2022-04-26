@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Details from '../views/Details.vue'
 import Create from '../views/Create.vue'
 import Tags from '../views/Tags.vue'
+import Edit from '../views/Edit.vue'
 
 const routes = [
   {
@@ -26,6 +27,12 @@ const routes = [
     path: '/tags/:tag',
     name: 'Tags',
     component: Tags,
+    props: true
+  },
+  {
+    path: '/edit/:id',
+    name: 'Edit',
+    component: Edit,
     props: true
   }
   

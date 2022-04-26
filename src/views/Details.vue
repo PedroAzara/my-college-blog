@@ -80,7 +80,7 @@ export default {
     
   }
   .post p {
-    color: #444;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     line-height: 1.5em;
     margin-top: 40px;
     color: #5d6265;
